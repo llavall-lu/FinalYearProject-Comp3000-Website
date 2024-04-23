@@ -6,22 +6,31 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "runall": "concurrently \"npm run dev\" \"npx prisma studio\" \"node server.js\""
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.9",
+    "@prisma/client": "^5.12.1",
+    "axios": "^1.6.8",
+    "mongodb": "^6.5.0",
+    "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.1.4"
+    "react-hot-toast": "^2.4.1",
+    "styled-components": "^6.1.8",
+    "ws": "^8.16.0"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.4",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "eslint": "^8",
-    "eslint-config-next": "14.1.4"
+    "typescript": "^5"
   }
 }
