@@ -3,18 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "npx prisma generate",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "runall": "concurrently \"npm run dev\" \"npx prisma studio\" \"node server.js\""
+    "start": "node server.js",
+    "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.9",
     "@prisma/client": "^5.12.1",
     "axios": "^1.6.8",
+    "compression": "^1.7.4",
+    "express": "^4.19.2",
     "mongodb": "^6.5.0",
-    "next": "14.1.4",
+    "next": "^14.1.4",
+    "prisma": "^5.12.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
@@ -26,7 +29,6 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
-    "concurrently": "^8.2.2",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "postcss": "^8",

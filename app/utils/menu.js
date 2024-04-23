@@ -1,4 +1,4 @@
-import { list, check, todo, home, edit, gamepad, shield, blog, chat } from "./icons";
+import { home, gamepad, shield, blog, chat } from "./icons";
 
 const menu = [
   {
@@ -23,7 +23,7 @@ const menu = [
     id: 4,
     title: "Game",
     icon: gamepad,
-    link: "/incomplete",
+    link: "/game",
   },
   {
     id: 5,
