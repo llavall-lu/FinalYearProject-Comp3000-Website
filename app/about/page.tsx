@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-
+import Nav from "../Components/NavBar/Navbar";
 
 const AboutPage = () => {
   return (
     <Container>
+      <Nav />
       <Content>
         <TextBlock>
           <Title>About Us</Title>

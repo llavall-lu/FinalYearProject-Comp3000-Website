@@ -1,16 +1,17 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-
+import Nav from "../Components/NavBar/Navbar";
 
 const HomePage = () => {
-  
+ 
   const slideshowImages = [
     "",
   ];
 
   return (
     <Container>
+      <Nav />
       <Slideshow>
         {slideshowImages.map((image, index) => (
           <Slide key={index} src={image} alt={`Slide ${index + 1}`} />
