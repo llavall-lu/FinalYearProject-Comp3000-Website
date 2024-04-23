@@ -83,71 +83,72 @@ const ChatPage = () => {
     scrollToBottom();
   }, [messages]); // Scroll to bottom whenever messages update
 
+  // Function to initialize WebSocket connection
+  const connectWebSocket = () => {
+    ws.current = new WebSocket("ws://localhost:3030"); // Create WebSocket connection
+
+    ws.current.onopen = () => {
+      // Function to handle WebSocket open event
+      console.log("Connected to WebSocket server");
+      if (ws.current) {
+        ws.current.send(JSON.stringify({ type: "history" })); // Request chat history from the WebSocket server
+      }
+    };
+
+    ws.current.onclose = () => {
+      // Function to handle WebSocket close event
+      console.log("WebSocket closed. Attempting to reconnect...");
+      setTimeout(connectWebSocket, 3000); // Try to reconnect after 3 seconds
+    };
+
+    ws.current.onmessage = (e) => {
+      // Function to handle WebSocket messages
+      const processMessage = (messageData: string) => {
+        // Function to process the message data
+        try {
+          const parsedMessage = JSON.parse(messageData); //  Parse the message data as JSON
+          console.log("Received message:", parsedMessage);
+
+          if (parsedMessage.type === "history") {
+            console.log("History data:", parsedMessage.data);
+
+            // Reverse the history data so that the most recent messages are at the end of the array
+            const reversedHistory = parsedMessage.data.reverse();
+            setMessages(reversedHistory);
+          } else {
+            // Get the sender name and message text from the parsed message
+            const senderName = parsedMessage.name || "Unknown";
+            const messageText = parsedMessage.text || "No message content";
+            const newMessage: ChatMessage = {
+              sender: senderName,
+              message: messageText,
+            }; // Create the message object
+            setMessages((prevMessages) => [...prevMessages, newMessage]); // Add the new message to the chat history
+          }
+        } catch (error) {
+          console.error("Error parsing message:", error);
+        }
+      };
+
+      if (e.data instanceof Blob) {
+        // Check if the message is a Blob
+        const reader = new FileReader(); // Create a FileReader
+        reader.onload = function () {
+          if (typeof reader.result === "string") {
+            // Check if the result is a string
+            processMessage(reader.result); // Process the message
+          }
+        };
+        reader.readAsText(e.data); // Read the Blob as text
+      } else {
+        processMessage(e.data); // Process the message
+      }
+    };
+  };
+
   useEffect(() => {
     if (user && (!ws.current || ws.current.readyState === WebSocket.CLOSED)) {
-      // Function to initialize WebSocket connection
-      const connectWebSocket = () => {
-        ws.current = new WebSocket("ws://localhost:3030"); // Create WebSocket connection
-  
-        ws.current.onopen = () => {
-          // Function to handle WebSocket open event
-          console.log("Connected to WebSocket server");
-          if (ws.current) {
-            ws.current.send(JSON.stringify({ type: "history" })); // Request chat history from the WebSocket server
-          }
-        };
-  
-        ws.current.onclose = () => {
-          // Function to handle WebSocket close event
-          console.log("WebSocket closed. Attempting to reconnect...");
-          setTimeout(connectWebSocket, 3000); // Try to reconnect after 3 seconds
-        };
-  
-        ws.current.onmessage = (e) => {
-          // Function to handle WebSocket messages
-          const processMessage = (messageData: string) => {
-            // Function to process the message data
-            try {
-              const parsedMessage = JSON.parse(messageData); //  Parse the message data as JSON
-              console.log("Received message:", parsedMessage);
-  
-              if (parsedMessage.type === "history") {
-                console.log("History data:", parsedMessage.data);
-  
-                // Reverse the history data so that the most recent messages are at the end of the array
-                const reversedHistory = parsedMessage.data.reverse();
-                setMessages(reversedHistory);
-              } else {
-                // Get the sender name and message text from the parsed message
-                const senderName = parsedMessage.name || "Unknown";
-                const messageText = parsedMessage.text || "No message content";
-                const newMessage: ChatMessage = {
-                  sender: senderName,
-                  message: messageText,
-                }; // Create the message object
-                setMessages((prevMessages) => [...prevMessages, newMessage]); // Add the new message to the chat history
-              }
-            } catch (error) {
-              console.error("Error parsing message:", error);
-            }
-          };
-  
-          if (e.data instanceof Blob) {
-            // Check if the message is a Blob
-            const reader = new FileReader(); // Create a FileReader
-            reader.onload = function () {
-              if (typeof reader.result === "string") {
-                // Check if the result is a string
-                processMessage(reader.result); // Process the message
-              }
-            };
-            reader.readAsText(e.data); // Read the Blob as text
-          } else {
-            processMessage(e.data); // Process the message
-          }
-        };
-      };
-  
+      // Check if the user is logged in and the WebSocket connection is closed
       connectWebSocket(); // Initialize WebSocket connection
     }
     return () => {
@@ -156,7 +157,7 @@ const ChatPage = () => {
         ws.current.close(); // Close the WebSocket connection
       }
     };
-  }, [user]); // Re-run the effect when `user` changes
+  }, [user]);
 
   const sendMessage = () => {
     // Function to send a message to the WebSocket server

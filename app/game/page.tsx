@@ -1,33 +1,51 @@
 "use client";
-import { useEffect, useRef } from "react";
+import React from "react";
+import styled, { ThemeProvider } from "styled-components";
+import { useGlobalState } from "../context/GlobalContextProvider";
 
-const WebGLPage = () => {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+const PageContainer = styled.div`
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+const IframeContainer = styled.div`
+  width: 100%;
+  height: calc(100vh - 4rem); /* Adjust height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-        // Initialize WebGL context
-        const gl = canvas.getContext('webgl');
-        if (!gl) {
-            console.error('Unable to initialize WebGL.');
-            return;
-        }
+const BoxWrapper = styled.div`
+  padding: 20px; /* Adjust padding as needed */
+  background-color: ${(props) => props.theme.colorBg2}; /* Grey color */
+  border: 2px solid ${(props) => props.theme.borderColor2}; /* Border color */
+  border-radius: 10px; /* Border radius */
+`;
 
-    }, []);
+function Page() {
+  const { theme } = useGlobalState(); // Access the theme from global context
 
-    return (
-        <div>
-            <canvas ref={canvasRef} width={800} height={600} />
+  return (
+    <ThemeProvider theme={theme}>
+      <PageContainer>
+        <IframeContainer>
+          <BoxWrapper>
             <iframe
-                src="/KyberConquest/index.html"
-                title="Kyber Conquest Game"
-                width="800"
-                height="600"
-            ></iframe>
-        </div>
-    );
-};
+              
+              title="WebGL Game"
+              width="1060" 
+              height="680"
+            />
+          </BoxWrapper>
+        </IframeContainer>
+      </PageContainer>
+    </ThemeProvider>
+  );
+}
 
-export default WebGLPage;
+export default Page;

@@ -1,33 +1,26 @@
-import { home, gamepad, shield, blog, chat } from "./icons";
-
+import { todo, blog, shield, gamepad, chat } from "./icons";
 const menu = [
   {
     id: 1,
-    title: "Main",
-    icon: home,
+    title: "All Blogs",
+    icon: blog,
     link: "/",
   },
   {
     id: 2,
-    title: "Blog",
-    icon: blog,
-    link: "/important",
+    title: "KyberConquest",
+    icon: gamepad,
+    link: "/game",
   },
   {
     id: 3,
     title: "VPN",
     icon: shield,
-    link: "/completed",
+    link: "/vpn",
   },
   {
     id: 4,
-    title: "Game",
-    icon: gamepad,
-    link: "/game",
-  },
-  {
-    id: 5,
-    title: "Global Chat",
+    title: "Chat",
     icon: chat,
     link: "/chat",
   },

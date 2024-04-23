@@ -4,7 +4,7 @@ import { SignUp } from "@clerk/nextjs";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
 
-function Page() { 
+function page() {
   const router = useRouter();
 
   const goToLandingPage = () => {
@@ -12,15 +12,15 @@ function Page() {
   };
 
   return (
-    <StyledSignup> 
+    <Styledsignup>
       <StyledButton onClick={goToLandingPage}>Go to Landing Page</StyledButton>{" "}
       {/* Use StyledButton */}
       <SignUp />
-    </StyledSignup>
+    </Styledsignup>
   );
 }
 
-const StyledSignup = styled.div`
+const Styledsignup = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,4 +53,4 @@ const StyledButton = styled.button`
   }
 `;
 
-export default Page; 
+export default page;

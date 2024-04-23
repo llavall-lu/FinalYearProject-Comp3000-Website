@@ -9,3 +9,5 @@ export const gamepad = <i class="fa-solid fa-gamepad"></i>
 export const shield = <i class="fa-solid fa-shield-halved"></i>
 export const blog = <i class="fa-solid fa-blog"></i>
 export const chat = <i class="fa-solid fa-comments"></i>
+export const todo = <i className="fa-solid fa-clipboard-list"></i>;
+export const info = <i class="fa-solid fa-circle-info"></i>

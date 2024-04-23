@@ -1,46 +1,70 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import Navbar from "../Components/Nav/Nav";
-import { useGlobalState } from "../context/GlobalContextProvider";
+
 
 const HomePage = () => {
-  const { theme } = useGlobalState();
+  
+  const slideshowImages = [
+    "",
+  ];
+
   return (
-    <Container theme={theme}>
-      <Box theme={theme}>
-        <Navbar />
-        <Title>Welcome to my final year project</Title>
-        <Title>Enjoy the game and blog</Title>
-        <Description>
-          This is a blog and game website. You can read and write blogs and
-          play games. Enjoy the website.
-        </Description>
-      </Box>
+    <Container>
+      <Slideshow>
+        {slideshowImages.map((image, index) => (
+          <Slide key={index} src={image} alt={`Slide ${index + 1}`} />
+        ))}
+      </Slideshow>
+      <Content>
+        <TextBlock>
+          <Title>Welcome to my final year project</Title>
+          <Description>
+            This is a blog and game website. You can read and write blogs and
+            play games. Enjoy the website.
+          </Description>
+        </TextBlock>
+        <TextBlock>
+          <Title>Enjoy the game and blog</Title>
+          <Description>
+            This is a blog and game website. You can read and write blogs and
+            play games. Enjoy the website.
+          </Description>
+        </TextBlock>
+      </Content>
     </Container>
   );
 };
+
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 20px;
 `;
 
-const Box = styled.div`
+const Slideshow = styled.div`
+  width: 80%; /* Adjust the width as needed */
+  max-height: 300px; /* Set the maximum height */
+  overflow: hidden;
+`;
+
+const Slide = styled.img`
+  width: 100%;
+  height: auto;
+`;
+
+const Content = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 60%;
-  height: 40%;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 80%;
+  margin-top: 20px;
+`;
+
+const TextBlock = styled.div`
+  flex: 1;
   padding: 20px;
-  background-color: ${({ theme }) => theme.colorBg2};
-  border-radius: 10px;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 `;
 
 const Title = styled.h1`
@@ -48,7 +72,6 @@ const Title = styled.h1`
   font-size: 24px;
   text-align: center;
   margin-bottom: 20px;
-  margin-top: 20px;
 `;
 
 const Description = styled.p`
