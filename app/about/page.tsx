@@ -27,7 +27,7 @@ const AboutPage = () => {
   );
 };
 
-
+// Styled components
 const Container = styled.div`
   display: flex;
   flex-direction: column;

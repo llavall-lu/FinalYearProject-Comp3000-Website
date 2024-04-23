@@ -36,7 +36,7 @@ function Page() {
         <IframeContainer>
           <BoxWrapper>
             <iframe
-              src="" 
+              src="/kyberconquest/index.html" 
               title="WebGL Game"
               width="1060" 
               height="680"

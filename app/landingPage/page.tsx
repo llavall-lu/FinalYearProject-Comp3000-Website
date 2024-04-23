@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Nav from "../Components/NavBar/Navbar";
 
 const HomePage = () => {
- 
+  // Placeholder images for slideshow
   const slideshowImages = [
     "",
   ];
@@ -37,7 +37,7 @@ const HomePage = () => {
   );
 };
 
-
+// Styled components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
